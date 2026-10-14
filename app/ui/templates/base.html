@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ judul }}</title>
+  <script src="/static/js/theme.js"></script>
+  <link rel="stylesheet" href="/static/css/theme.css">
+</head>
+<body>
+  <header class="bar">
+    <h1>Verifikasi Casing</h1>
+    <div class="bar-kanan">
+      <span id="status-sse" class="status status-putus" role="status">SSE: terputus</span>
+      <button id="tombol-tema" type="button" class="tombol" aria-label="Ganti tema">Tema</button>
+    </div>
+  </header>
+  <main class="konten">
+    {% block content %}{% endblock %}
+  </main>
+  <script src="/static/js/events.js" defer></script>
+</body>
+</html>

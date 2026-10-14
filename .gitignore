@@ -7,6 +7,7 @@ __pycache__/
 .cover/
 .venv/
 venv/
+.claude/
 
 # Environment / local config
 .env
