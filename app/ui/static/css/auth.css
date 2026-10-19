@@ -1,0 +1,17 @@
+/* CV-5: gaya panel login dan bar sesi. */
+.bar-sesi { display: inline-flex; align-items: center; gap: 0.5rem; }
+.sesi-nama { font-size: 0.9rem; color: var(--text-muted); }
+.kartu-login { max-width: 24rem; margin: 2rem auto 0; }
+.kartu-login form { display: grid; gap: 0.5rem; }
+.kartu-login input {
+  padding: 0.6rem 0.7rem;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.kartu-login input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.kartu-login .tombol-utama { margin-top: 0.5rem; }
+.info-login, .info-rfid { min-height: 1.2em; color: var(--bad); }
+.catatan-login { color: var(--text-muted); font-size: 0.85rem; }

@@ -1,0 +1,24 @@
+{% extends "admin/base_admin.html" %}
+{% block isi_admin %}
+<section class="kartu">
+  <h2>Pengaturan</h2>
+  <p id="versi-pengaturan"></p>
+  <div id="peringatan-pengaturan"></div>
+  <form id="form-pengaturan" class="form-admin">
+    <label>Ambang keyakinan (%) <input name="ambang" type="number" min="0" max="100" step="1" required></label>
+    <label>Masa simpan gambar (hari) <input name="masa" type="number" min="1" step="1" required></label>
+    <label>Ruang warna default untuk varian baru
+      <select name="ruang"><option value="lab">lab</option><option value="ycrcb">ycrcb</option><option value="hsv">hsv</option></select>
+    </label>
+    <label>Jumlah part default per box <input name="jumlah" type="number" min="1" step="1" required></label>
+    <label><input name="kurang" type="checkbox"> Izinkan box kurang dari jumlah default</label>
+    <button type="submit" class="tombol-utama">Simpan</button>
+    <button type="button" id="tombol-default" class="tombol">Kembalikan default</button>
+  </form>
+  <p id="pesan-pengaturan" class="pesan-admin" role="status"></p>
+  <h3>Riwayat terakhir</h3>
+  <ul id="riwayat-pengaturan"></ul>
+</section>
+<script src="/static/js/admin_util.js"></script>
+<script src="/static/js/admin_pengaturan.js" defer></script>
+{% endblock %}

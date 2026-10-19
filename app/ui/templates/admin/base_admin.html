@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block head_extra %}<link rel="stylesheet" href="/static/css/admin.css">{% endblock %}
+{% block bar_sesi %}{% include "_bar_sesi.html" %}{% endblock %}
+{% block content %}
+<nav class="menu-admin" aria-label="Menu admin">
+  <a href="/">Kiosk</a>
+  {% for nama, url in menu %}<a href="{{ url }}">{{ nama }}</a>{% endfor %}
+</nav>
+{% block isi_admin %}{% endblock %}
+{% endblock %}

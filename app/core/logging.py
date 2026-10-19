@@ -4,6 +4,7 @@ Catatan: `ContextVar` tidak merambat ke thread buatan manual; pakai `asyncio.to_
 atau `contextvars.copy_context().run(...)` agar `cycle_id` ikut terbawa.
 """
 
+import asyncio
 import json
 import logging
 import sys
@@ -59,6 +60,27 @@ class CycleIdFilter(logging.Filter):
         return True
 
 
+class ShutdownStreamFilter(logging.Filter):
+    """Turunkan CancelledError "timeout graceful shutdown" uvicorn ke INFO tanpa traceback.
+
+    Stream SSE/MJPEG sengaja dipotong uvicorn saat shutdown; itu bukan galat aplikasi."""
+
+    _PENANDA = "timeout graceful shutdown exceeded"
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        """Ubah record yang cocok jadi INFO bersih; record lain lolos tanpa perubahan."""
+        info = record.exc_info
+        if info and info[0] is not None and issubclass(info[0], asyncio.CancelledError):
+            if self._PENANDA in str(info[1]):
+                record.levelno = logging.INFO
+                record.levelname = "INFO"
+                record.msg = "Stream dipotong saat shutdown (timeout graceful)"
+                record.args = ()
+                record.exc_info = None
+                record.exc_text = None
+        return True
+
+
 class JsonFormatter(logging.Formatter):
     """Format satu record menjadi satu baris JSON dengan kunci tetap + `extra` pemanggil."""
 
@@ -105,6 +127,7 @@ def configure_logging(settings: Settings) -> None:
     for handler in handlers:
         handler.setFormatter(formatter)
         handler.addFilter(CycleIdFilter())
+        handler.addFilter(ShutdownStreamFilter())
         setattr(handler, _HANDLER_TAG, True)
         root.addHandler(handler)
     root.setLevel(settings.log_level.upper())

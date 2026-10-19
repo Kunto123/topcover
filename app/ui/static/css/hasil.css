@@ -1,0 +1,55 @@
+/* Panel hasil operator (CV-12). Warna selalu disertai teks. Band hasil = elemen utama layar. */
+.panel-hasil { padding: 0; overflow: hidden; }
+
+.hasil-badge {
+  display: block;
+  text-align: center;
+  font-size: clamp(2.75rem, 7vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  padding: 1.5rem 1rem;
+  color: #fff;
+}
+
+.hasil-match { background: var(--ok-solid); }
+.hasil-notmatch { background: var(--bad-solid); }
+
+.hasil-isi { padding: 1rem 1.5rem 1.25rem; }
+.hasil-pesan { font-size: 1.2rem; color: var(--text); margin: 0 0 0.75rem; }
+
+.hasil-peringatan {
+  border-left: 4px solid var(--warn);
+  background: var(--warn-bg);
+  color: var(--text);
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.hasil-rincian-tabel { width: 100%; margin: 0.75rem 0; border-collapse: collapse; }
+.hasil-rincian-tabel th { text-align: left; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+.hasil-rincian-tabel th, .hasil-rincian-tabel td { padding: 0.3rem 0.5rem; border-bottom: 1px solid var(--border); }
+
+.hasil-waktu { margin: 0; font-size: 0.9rem; color: var(--text-muted); }
+.hasil-lambat { color: var(--bad); font-weight: 700; }
+.hasil-counter { margin: 0; text-align: right; font-weight: 600; color: var(--text-muted); }
+
+/* Ikon pada band hasil (teks tetap ada; ikon hanya penegas). */
+.hasil-match::before { content: "\2713\00a0"; }
+.hasil-notmatch::before { content: "\2715\00a0"; }
+
+@media (min-width: 62rem) {
+  .halaman-kiosk .panel-hasil { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
+  .halaman-kiosk .panel-hasil[hidden] { display: none; }
+  .halaman-kiosk .hasil-badge { flex: none; }
+  .halaman-kiosk .hasil-isi { flex: 1 1 auto; min-height: 0; overflow: auto; }
+}
+
+/* Teks band mengikuti lebar kolom (cqi) agar "NOT MATCH" muat di kolom 20%. */
+.hasil-badge { font-size: clamp(1.4rem, 11cqi, 4.5rem); padding: 1rem 0.5rem; }
+@media (min-width: 62rem) {
+  .halaman-kiosk .hasil-isi { padding: 0.75rem 1rem 1rem; }
+  .halaman-kiosk .hasil-pesan { font-size: 1rem; }
+  .halaman-kiosk .hasil-rincian-tabel { font-size: 0.85rem; }
+  .halaman-kiosk .hasil-rincian-tabel th, .halaman-kiosk .hasil-rincian-tabel td { padding: 0.25rem 0.3rem; }
+}

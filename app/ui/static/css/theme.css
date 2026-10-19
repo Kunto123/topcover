@@ -1,39 +1,53 @@
 /* Tema light/dark lewat CSS variables. Default mengikuti sistem; pilihan pengguna lewat data-theme. */
 :root {
-  --bg: #f5f6f8;
+  --bg: #f3f4f6;
   --surface: #ffffff;
-  --text: #1b1f24;
-  --text-muted: #57606a;
-  --border: #d0d7de;
-  --accent: #0b5fff;
-  --ok: #1a7f37;
-  --bad: #b42318;
+  --text: #16202a;
+  --text-muted: #5b6673;
+  --border: #dde1e7;
+  --accent: #1d5fd1;
+  --ok: #17803d;
+  --bad: #b3261e;
+  --warn: #a15c07;
+  --ok-solid: #17803d;
+  --bad-solid: #b3261e;
+  --warn-bg: #fff6e5;
+  --radius: 10px;
+  --radius-sm: 6px;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0f1419;
-    --surface: #1a2028;
+    --bg: #0e1317;
+    --surface: #171d24;
     --text: #e6edf3;
     --text-muted: #9aa7b4;
-    --border: #2f3a46;
+    --border: #2a343f;
     --accent: #6ea3ff;
     --ok: #3fb950;
     --bad: #f97066;
+    --warn: #f0b04a;
+    --ok-solid: #1f8a47;
+    --bad-solid: #c8372d;
+    --warn-bg: #2b2210;
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #0f1419;
-  --surface: #1a2028;
+  --bg: #0e1317;
+  --surface: #171d24;
   --text: #e6edf3;
   --text-muted: #9aa7b4;
-  --border: #2f3a46;
+  --border: #2a343f;
   --accent: #6ea3ff;
   --ok: #3fb950;
   --bad: #f97066;
+  --warn: #f0b04a;
+  --ok-solid: #1f8a47;
+  --bad-solid: #c8372d;
+  --warn-bg: #2b2210;
   color-scheme: dark;
 }
 
@@ -45,44 +59,108 @@ body {
   color: var(--text);
   font-family: system-ui, "Segoe UI", Roboto, sans-serif;
   line-height: 1.5;
+  font-variant-numeric: tabular-nums;
 }
+
+a { color: var(--accent); }
 
 .bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1rem;
+  gap: 1rem;
+  padding: 0.625rem 1.25rem;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
 
-.bar h1 { margin: 0; font-size: 1.25rem; }
-.bar-kanan { display: flex; align-items: center; gap: 0.75rem; }
+.bar h1 { margin: 0; font-size: 1.125rem; font-weight: 650; letter-spacing: 0.01em; }
+.bar-kanan { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; justify-content: flex-end; }
 
-.konten { padding: 1rem; max-width: 72rem; margin: 0 auto; }
+.konten { padding: 1.25rem; max-width: 80rem; margin: 0 auto; }
+
+/* Tata letak kiosk: kolom kerja di kiri, kamera dan status di kanan. */
+.tata { display: grid; gap: 1.25rem; align-items: start; }
+.kolom { display: grid; gap: 1rem; min-width: 0; }
+@media (min-width: 62rem) {
+  .tata { grid-template-columns: minmax(0, 4fr) minmax(0, 1fr); }
+}
 
 .kartu {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 0.5rem;
-  padding: 1.5rem;
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
 }
 
 .kartu h2 { margin-top: 0; }
-.kartu p { color: var(--text-muted); }
+:where(.kartu) p { color: var(--text-muted); } /* spesifisitas rendah: kelas lain boleh menimpa */
 
 .tombol {
   background: transparent;
   color: var(--text);
   border: 1px solid var(--border);
-  border-radius: 0.375rem;
+  border-radius: var(--radius-sm);
   padding: 0.375rem 0.75rem;
+  font: inherit;
+  font-size: 0.9rem;
+  text-decoration: none;
   cursor: pointer;
 }
 
 .tombol:hover { border-color: var(--accent); }
 .tombol:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-.status { font-size: 0.875rem; }
+/* Indikator status: titik berwarna + teks (warna tidak pernah berdiri sendiri). */
+.status { font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.4rem; }
+.status::before { content: ""; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: currentColor; }
 .status-ok { color: var(--ok); }
 .status-putus { color: var(--bad); }
+
+@media (max-width: 40rem) {
+  .bar { flex-direction: column; align-items: flex-start; }
+  .bar-kanan { justify-content: flex-start; }
+  .konten { padding: 0.75rem; }
+}
+
+/* ---- Skala, hiasan tipis, dan mode satu layar ---- */
+html { font-size: clamp(15px, 0.8vmin + 9px, 19px); }
+
+body {
+  background-image: radial-gradient(color-mix(in srgb, var(--text) 9%, transparent) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+
+.kartu { box-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 8px 18px -12px rgb(0 0 0 / 0.18); }
+
+.bar { position: relative; }
+.bar::after { content: ""; position: absolute; left: 0; bottom: -1px; width: 5rem; height: 2px; background: var(--accent); }
+.bar h1 { display: flex; align-items: center; gap: 0.6rem; }
+
+/* Logo lensa: penanda kecil bertema kamera/inspeksi. */
+.logo {
+  position: relative;
+  flex: none;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 0.4rem;
+  background: var(--accent);
+}
+.logo::after {
+  content: "";
+  position: absolute;
+  inset: 0.38rem;
+  border-radius: 50%;
+  border: 2px solid rgb(255 255 255 / 0.9);
+}
+
+@media (min-width: 62rem) {
+  .halaman-kiosk { height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+  .halaman-kiosk .konten { flex: 1; min-height: 0; width: 100%; max-width: none; margin: 0; display: flex; }
+  .halaman-kiosk .tata { flex: 1; min-height: 0; align-items: stretch; grid-template-rows: minmax(0, 1fr); }
+  .halaman-kiosk .kolom { display: flex; flex-direction: column; min-height: 0; }
+  .halaman-kiosk .kolom > * { flex: none; }
+}
+
+/* Kolom jadi container: ukuran teks hasil mengikuti lebar kolom (kolom kontrol sempit). */
+.kolom { container-type: inline-size; }

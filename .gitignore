@@ -28,3 +28,16 @@ htmlcov/
 build/
 dist/
 *.egg-info/
+
+# Bukan kode utama: tidak ikut di-push ke GitHub
+docs/
+tests/
+tools/
+
+# Artefak lokal lain
+*.log
+*.tmp
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

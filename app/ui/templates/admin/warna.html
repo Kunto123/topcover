@@ -1,0 +1,30 @@
+{% extends "admin/base_admin.html" %}
+{% block isi_admin %}
+<section class="kartu">
+  <h2>Varian warna</h2>
+  <p>Nama disimpan huruf kecil (sama dengan yang diurai dari datapart). Nilai referensi diisi per ruang warna
+  (lab/ycrcb/hsv sesuai skala di <code>docs/spike-warna.md</code>).</p>
+  <div id="peringatan-warna"></div>
+  <table class="tabel-admin">
+    <thead><tr><th>Nama</th><th>Ruang</th><th>Referensi</th><th>Toleransi</th><th>Status</th><th>Versi</th><th></th></tr></thead>
+    <tbody id="tabel-warna"></tbody>
+  </table>
+</section>
+<section class="kartu">
+  <h3>Tambah / ubah varian</h3>
+  <form id="form-warna" class="form-admin" autocomplete="off">
+    <label>Nama <input name="nama" required maxlength="50" pattern="[A-Za-z0-9_]+"></label>
+    <label>Ruang
+      <select name="ruang"><option value="lab">lab</option><option value="ycrcb">ycrcb</option><option value="hsv">hsv</option></select>
+    </label>
+    <label>Referensi 1 <input name="a" type="number" step="any" required></label>
+    <label>Referensi 2 <input name="b" type="number" step="any" required></label>
+    <label>Referensi 3 <input name="c" type="number" step="any" required></label>
+    <label>Toleransi (&gt; 0) <input name="toleransi" type="number" step="any" min="0" required></label>
+    <button type="submit" class="tombol-utama">Simpan</button>
+  </form>
+  <p id="pesan-warna" class="pesan-admin" role="status"></p>
+</section>
+<script src="/static/js/admin_util.js"></script>
+<script src="/static/js/admin_warna.js" defer></script>
+{% endblock %}

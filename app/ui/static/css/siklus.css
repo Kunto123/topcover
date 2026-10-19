@@ -1,0 +1,87 @@
+/* Gaya panel siklus, banner pemindai, dan info scan (CV-6). Memakai token tema. */
+.banner {
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.banner[hidden] { display: none; }
+.banner-peringatan { background: var(--bad-solid); color: #fff; }
+
+/* Status siklus: titik mengikuti data-state (diatur siklus.js). */
+.status-siklus {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.625rem;
+  font-weight: 650;
+  line-height: 1.25;
+  margin: 0 0 0.25rem;
+}
+
+.status-siklus::before {
+  content: "";
+  flex: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.status-siklus[data-state="READY"]::before,
+.status-siklus[data-state="DONE"]::before { background: var(--ok); }
+
+.status-siklus[data-state="CAPTURING"]::before,
+.status-siklus[data-state="INFERRING"]::before,
+.status-siklus[data-state="JUDGED"]::before,
+.status-siklus[data-state="SAVING"]::before,
+.status-siklus[data-state="PRINTING"]::before {
+  background: var(--accent);
+  animation: berdenyut 1s ease-in-out infinite;
+}
+
+@keyframes berdenyut { 50% { opacity: 0.3; } }
+@media (prefers-reduced-motion: reduce) {
+  .status-siklus::before { animation: none !important; }
+}
+
+.info-datapart { color: var(--text-muted); margin: 0 0 1.25rem; }
+.aksi-siklus { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.aksi-siklus .tombol-utama { flex: 1 1 14rem; }
+.aksi-siklus .tombol { padding-inline: 1.25rem; font-size: 1rem; }
+
+.tombol-utama {
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: var(--radius-sm);
+  min-height: 3.25rem;
+  padding: 0.75rem 1.75rem;
+  font: inherit;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+:root[data-theme="dark"] .tombol-utama { color: #08142b; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tombol-utama { color: #08142b; }
+}
+
+.tombol-utama:hover:not(:disabled) { filter: brightness(1.08); }
+.tombol-utama:disabled { opacity: 0.4; cursor: not-allowed; }
+.tombol-utama:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
+
+.info-scan { min-height: 1.5rem; margin: 1rem 0 0; }
+.info-ok { color: var(--ok); }
+.info-galat { color: var(--bad); }
+.info-galat-siklus { color: var(--bad); min-height: 1.5rem; margin: 0.5rem 0 0; }
+
+/* Kolom kontrol sempit (20%): susun vertikal, ukuran lebih rapat. */
+@media (min-width: 62rem) {
+  .halaman-kiosk .kolom-kontrol .kartu { padding: 1rem; }
+  .halaman-kiosk .status-siklus { font-size: 1.2rem; }
+  .halaman-kiosk .aksi-siklus { flex-direction: column; }
+  .halaman-kiosk .aksi-siklus .tombol-utama { flex: none; min-height: 3.5rem; padding-inline: 1rem; }
+  .halaman-kiosk .aksi-siklus .tombol { width: 100%; padding-block: 0.6rem; }
+}

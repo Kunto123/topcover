@@ -1,0 +1,43 @@
+/* Panel kamera: bingkai preview responsif dan status galat (CV-7). Memakai token tema. */
+.kartu-kamera { padding: 0.75rem; display: flex; flex-direction: column; }
+
+.bingkai { position: relative; margin-top: 0.5rem; }
+.bingkai:has(.preview-kamera[hidden]) { display: none; }
+
+.preview-kamera {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  background: #000;
+}
+
+/* Sudut bidik (viewfinder) tipis di atas gambar. */
+.bingkai::after {
+  --c: rgb(255 255 255 / 0.75);
+  content: "";
+  position: absolute;
+  inset: 0.6rem;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--c), var(--c)) top left / 1.1rem 2px,
+    linear-gradient(var(--c), var(--c)) top left / 2px 1.1rem,
+    linear-gradient(var(--c), var(--c)) top right / 1.1rem 2px,
+    linear-gradient(var(--c), var(--c)) top right / 2px 1.1rem,
+    linear-gradient(var(--c), var(--c)) bottom left / 1.1rem 2px,
+    linear-gradient(var(--c), var(--c)) bottom left / 2px 1.1rem,
+    linear-gradient(var(--c), var(--c)) bottom right / 1.1rem 2px,
+    linear-gradient(var(--c), var(--c)) bottom right / 2px 1.1rem;
+  background-repeat: no-repeat;
+}
+
+.preview-kamera[hidden] { display: none; }
+.status-kamera { font-size: 0.9rem; padding: 0.25rem 0.5rem; }
+.status-kamera-ok { color: var(--ok); }
+.status-kamera-galat { color: #fff; background: var(--bad-solid); border-radius: var(--radius-sm); font-weight: 600; padding: 0.5rem 0.75rem; }
+
+@media (min-width: 62rem) {
+  .halaman-kiosk .kartu-kamera { flex: 1 1 0; min-height: 0; }
+  .halaman-kiosk .bingkai { flex: 1 1 0; min-height: 0; }
+  .halaman-kiosk .preview-kamera { height: 100%; object-fit: contain; }
+}

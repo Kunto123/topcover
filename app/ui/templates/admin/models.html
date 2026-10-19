@@ -1,0 +1,30 @@
+{% extends "admin/base_admin.html" %}
+{% block isi_admin %}
+<section class="kartu">
+  <h2>Model inferensi</h2>
+  <p id="status-mesin" class="pesan-admin" role="status"></p>
+  <table class="tabel-admin">
+    <thead><tr><th>ID</th><th>Versi</th><th>Status</th><th>Kelas</th><th>Dibuat</th><th></th></tr></thead>
+    <tbody id="tabel-model"></tbody>
+  </table>
+  <button type="button" id="tombol-rollback" class="tombol">Rollback ke model sebelumnya</button>
+  <p id="pesan-model" class="pesan-admin" role="status"></p>
+</section>
+<section class="kartu">
+  <h3>Impor model</h3>
+  <p>Format: zip, .onnx, atau OpenVINO (.xml). Konversi .pt hanya bila paket <code>ultralytics</code> terpasang
+  (sebaiknya ekspor di PC training). Kelas wajib <code>kiri</code> dan <code>kanan</code>.</p>
+  <form id="form-impor" class="form-admin">
+    <label>Versi <input name="versi" required maxlength="50" pattern="[A-Za-z0-9][A-Za-z0-9._-]*"></label>
+    <label>Berkas <input name="berkas" type="file" required></label>
+    <label>Kelas (jika tidak ada di metadata, urut indeks, pisah koma) <input name="kelas" placeholder="kiri,kanan"></label>
+    <label>imgsz (untuk konversi) <input name="imgsz" type="number" value="640" min="32" max="2048"></label>
+    <label><input name="aktifkan" type="checkbox"> Aktifkan setelah berhasil</label>
+    <button type="submit" class="tombol-utama">Unggah &amp; impor</button>
+  </form>
+  <progress id="progres-impor" value="0" max="100" hidden></progress>
+  <p id="status-impor" class="pesan-admin" role="status"></p>
+</section>
+<script src="/static/js/admin_util.js"></script>
+<script src="/static/js/admin_models.js" defer></script>
+{% endblock %}

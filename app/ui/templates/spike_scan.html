@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="kartu">
+  <h2>Spike C — uji pemindai (debug)</h2>
+  <p>Pindai kode beruntun. Bandingkan hitungan klien (terdeteksi browser) dengan server (diterima).</p>
+  <p>Terdeteksi klien: <strong id="spike-klien">0</strong> · Diterima server: <strong id="spike-server">0</strong>
+     · Selisih: <strong id="spike-selisih">0</strong></p>
+  <p>Kolom uji (untuk memindahkan fokus; scan di sini tidak dihitung):</p>
+  <input id="spike-input" type="text" aria-label="kolom uji fokus">
+  <ol id="spike-daftar"></ol>
+</section>
+<script>
+  (function () {
+    var klien = 0;
+    function perbarui() {
+      fetch("/api/cycle/statistik").then(function (r) { return r.json(); }).then(function (s) {
+        document.getElementById("spike-server").textContent = s.scan_diterima;
+        document.getElementById("spike-selisih").textContent = klien - s.scan_diterima;
+      });
+    }
+    document.addEventListener("casing:scan", function (e) {
+      klien += 1;
+      document.getElementById("spike-klien").textContent = klien;
+      var li = document.createElement("li");
+      li.textContent = e.detail.kode + " (HTTP " + e.detail.status + ")";
+      document.getElementById("spike-daftar").prepend(li);
+      perbarui();
+    });
+  })();
+</script>
+{% endblock %}

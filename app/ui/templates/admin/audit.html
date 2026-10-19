@@ -1,0 +1,35 @@
+{% extends "admin/base_admin.html" %}
+{% block isi_admin %}
+<section class="kartu">
+  <h2>Audit SPV</h2>
+  <form id="form-audit" class="form-admin">
+    <label>Mulai <input name="mulai" type="date" required></label>
+    <label>Sampai <input name="sampai" type="date" required></label>
+    <label>Sampel MATCH acak <input name="sampel" type="number" min="0" max="500" value="50"></label>
+    <label>Varian (opsional) <input name="varian" maxlength="50" pattern="[a-z0-9_]*"></label>
+    <label>Seed (kosong = baru) <input name="seed" maxlength="64" pattern="[A-Za-z0-9_-]*"></label>
+    <button type="submit" class="tombol-utama">Tampilkan</button>
+    <button type="button" id="tombol-csv" class="tombol">Ekspor CSV</button>
+  </form>
+  <p id="pesan-audit" class="pesan-admin" role="status"></p>
+  <p id="info-seed"></p>
+</section>
+<section class="kartu">
+  <h3>Ringkasan</h3>
+  <ul id="ringkasan-audit"></ul>
+</section>
+<section class="kartu">
+  <table class="tabel-admin">
+    <thead><tr><th>Waktu</th><th>Datapart</th><th>Hasil</th><th>Alasan</th><th>Operator</th><th>Durasi</th><th></th></tr></thead>
+    <tbody id="tabel-audit"></tbody>
+  </table>
+</section>
+<section class="kartu" id="rincian-audit" hidden>
+  <h3 id="judul-rincian"></h3>
+  <table class="tabel-admin"><tbody id="part-rincian"></tbody></table>
+  <img id="gambar-rincian" alt="Gambar box" style="max-width:100%" hidden>
+  <p id="info-gambar"></p>
+</section>
+<script src="/static/js/admin_util.js"></script>
+<script src="/static/js/admin_audit.js" defer></script>
+{% endblock %}

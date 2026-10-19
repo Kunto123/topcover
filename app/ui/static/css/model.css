@@ -1,0 +1,4 @@
+/* CV-8: status model inferensi. */
+.status-model { font-size: 0.9rem; }
+.status-model-ok { color: var(--ok); }
+.status-model-gagal { color: var(--bad); font-weight: 600; }

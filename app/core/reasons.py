@@ -21,6 +21,8 @@ class ReasonCode(StrEnum):
     KEYAKINAN_RENDAH = "keyakinan_rendah"
     TIDAK_ADA_PART = "tidak_ada_part"
     JUMLAH_TIDAK_SESUAI = "jumlah_tidak_sesuai"
+    TIPE_TIDAK_SESUAI = "tipe_tidak_sesuai"
+    VARIAN_TIDAK_DIKENAL = "varian_tidak_dikenal"
     GAGAL_PUSH = "gagal_push"
 
     @property
@@ -35,5 +37,7 @@ REASON_DESCRIPTIONS: dict[ReasonCode, str] = {
     ReasonCode.KEYAKINAN_RENDAH: "Keyakinan model di bawah ambang; diputuskan NOT_MATCH.",
     ReasonCode.TIDAK_ADA_PART: "Tidak ada part terdeteksi pada gambar.",
     ReasonCode.JUMLAH_TIDAK_SESUAI: "Jumlah part terdeteksi tidak sesuai aturan box.",
+    ReasonCode.TIPE_TIDAK_SESUAI: "Tipe part (kiri/kanan) tidak sama dengan datapart.",
+    ReasonCode.VARIAN_TIDAK_DIKENAL: "Varian warna pada datapart tidak terdaftar.",
     ReasonCode.GAGAL_PUSH: "Gagal mengirim hasil ke database pabrik; ulangi siklus.",
 }

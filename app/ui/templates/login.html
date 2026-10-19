@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block bar_sesi %}{% include "_bar_sesi.html" %}{% endblock %}
+{% block content %}
+<section class="kartu kartu-login">
+  <h2>Masuk</h2>
+  <form id="form-login" autocomplete="off">
+    <label for="login-username">Username</label>
+    <input id="login-username" name="username" type="text" maxlength="100" required autofocus>
+    <label for="login-password">Password</label>
+    <input id="login-password" name="password" type="password" maxlength="1024" required>
+    <button type="submit" class="tombol-utama">Masuk</button>
+  </form>
+  <p id="info-login" class="info-login" role="alert"></p>
+  <p class="catatan-login">Operator cukup scan kartu RFID di halaman utama.</p>
+</section>
+{% endblock %}

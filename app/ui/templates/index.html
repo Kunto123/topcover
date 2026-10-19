@@ -1,7 +1,53 @@
 {% extends "base.html" %}
+{% block body_class %}halaman-kiosk{% endblock %}
+{% block bar_sesi %}{% include "_bar_sesi.html" %}{% endblock %}
 {% block content %}
-<section class="kartu">
-  <h2>Menunggu datapart…</h2>
-  <p>Scan datapart untuk memulai siklus. (Kerangka CV-1: layar operator diisi oleh CV-12.)</p>
+<div class="tata">
+  <div class="kolom kolom-kamera">
+{% block panel_kamera %}
+<section class="kartu kartu-kamera">
+  <div id="status-kamera" class="status-kamera" role="status">Kamera: memeriksa…</div>
+  <div class="bingkai"><img id="preview-kamera" class="preview-kamera" alt="Preview kamera" hidden></div>
 </section>
+<script src="/static/js/kamera.js" defer></script>
+{% endblock %}
+{% block panel_model %}
+<section class="kartu">
+  <div id="status-model" class="status-model" role="status">Model: memeriksa…</div>
+</section>
+<script src="/static/js/model.js" defer></script>
+{% endblock %}
+  </div>
+  <div class="kolom kolom-kontrol">
+{% block panel_siklus %}
+<section class="kartu">
+  <h2 id="status-siklus" class="status-siklus" role="status">Menunggu datapart…</h2>
+  <p id="info-datapart" class="info-datapart">—</p>
+  <div class="aksi-siklus">
+    <button id="tombol-capture" type="button" class="tombol-utama" disabled>Ambil Gambar</button>
+    <button id="tombol-reset" type="button" class="tombol">Reset</button>
+  </div>
+  <p id="info-scan" class="info-scan" role="status"></p>
+  <p id="info-rfid" class="info-rfid" role="status"></p>
+  <p id="info-galat-siklus" class="info-galat-siklus" role="alert"></p>
+</section>
+{% endblock %}
+{% block panel_hasil %}
+<section id="panel-hasil" class="kartu panel-hasil" hidden>
+  <div id="hasil-badge" class="hasil-badge" role="status"></div>
+  <div class="hasil-isi">
+    <p id="hasil-pesan" class="hasil-pesan"></p>
+    <p id="hasil-peringatan" class="hasil-peringatan" role="alert" hidden></p>
+    <table class="hasil-rincian-tabel">
+      <thead><tr><th>#</th><th>Kelas</th><th>Keyakinan</th><th>Jarak</th></tr></thead>
+      <tbody id="hasil-rincian"></tbody>
+    </table>
+    <p id="hasil-waktu" class="hasil-waktu"></p>
+  </div>
+</section>
+<p id="hasil-counter" class="hasil-counter" role="status"></p>
+<script src="/static/js/hasil.js" defer></script>
+{% endblock %}
+  </div>
+</div>
 {% endblock %}
